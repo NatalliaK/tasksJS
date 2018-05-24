@@ -1,9 +1,15 @@
-var textarea = document.querySelector('#textarea');
-var button = document.querySelector('#button');
+const textarea = document.querySelector('#textarea');
+const button = document.querySelector('#button');
 
 button.addEventListener('click', e => {
   var key = 1;
   var textareaVal = textarea.value;
+  const FIRST_ENG_LETTER_UNICODE = 65;
+  const LAST_ENG_LETTER_UNICODE = 122;
+  const COMMA_UNICODE = 44;
+  const POINT_UNICODE = 46;
+  const MAX_VALUE = 255;
+
   var text;
 
   do {
@@ -17,17 +23,20 @@ button.addEventListener('click', e => {
         }
       })
       .filter(el => {
-        return el === ' ' || (el >= 65 && el <= 122) || el === 44 || el === 46;
+        return el === ' ' || (el >= FIRST_ENG_LETTER_UNICODE && el <= LAST_ENG_LETTER_UNICODE) || el === COMMA_UNICODE || el === POINT_UNICODE;
       })
       .map(el => {
-        return String.fromCharCode(el);
+				if (el !== ' ') {
+					return String.fromCharCode(el);
+				} else {
+					return el;
+				}
       });
     key++;
-  } while (text.length !== textareaVal.length && key < 256);
+  } while (text.length !== textareaVal.length && key <= MAX_VALUE);
 
-  console.log(text.join(''));
   var outputText = document.createElement('p');
   outputText.innerHTML = text.join('');
   document.querySelector('body').appendChild(outputText);
-  textareaVal = '';
+	textareaVal = '';
 });

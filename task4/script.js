@@ -1,15 +1,16 @@
 //заглавные и строчные буквы английского алфавита + пробелы
 
-var textarea = document.querySelector('#textarea');
-var password = document.querySelector('#password');
-var button = document.querySelector('#button');
+const textarea = document.querySelector('#textarea');
+const password = document.querySelector('#password');
+const button = document.querySelector('#button');
+const MAX_VALUE = 255;
 button.addEventListener('click', e => {
   var key;
 
   if (
     typeof +password.value === 'number' &&
     password.value > 0 &&
-    password.value <= 255
+    password.value <= MAX_VALUE
   ) {
     key = password.value;
   } else if (password.value.length === 1) {
